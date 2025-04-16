@@ -1,7 +1,7 @@
 # README
 
 * Repo: https://github.com/Antisthene/movies-micro-fastapi
-* On any push on dev, qa branch, the Jenkinsfile is launched
+* On any push on dev, qa, staging and master branch, the Jenkinsfile is launched with pipelines
 
 ## DockerHub public links:
 * Cast Image: https://hub.docker.com/r/al38984/jenkins-cast-fastapi 
