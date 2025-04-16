@@ -11,7 +11,7 @@ stages {
             steps {
                 script {
                 sh '''
-		             cd Jenkins_devops_exams/movie-service/
+		             cd jenkins_devops_exams/movie-service/
                  docker rm -f jenkins
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG .
                 sleep 6
@@ -59,6 +59,7 @@ stages {
                 helm upgrade cast-chart ./cast --values=./cast/values.yaml -n dev
                 helm upgrade movie-chart ./movie --values=./movie/values.yaml -n dev
                 helm upgrade nginx-chart ./nginx --values=./nginx/values.yaml -n dev
+                sleep 10
                 '''
                 }
             }
