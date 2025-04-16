@@ -8,6 +8,9 @@ pipeline {
   agent any // Jenkins will be able to select all available agents
     stages {
       stage(' Docker Build'){ // docker build image stage
+        when {
+          branch 'dev'
+        }
         steps {
           script {
             sh '''
@@ -20,6 +23,9 @@ pipeline {
         }
       }
       stage('Docker run'){ // run container from our builded image
+        when {
+          branch 'dev'
+        }
         steps {
           script {
             sh '''
@@ -33,6 +39,9 @@ pipeline {
         environment
         {
           DOCKER_PASS = credentials("DOCKER_HUB_PASS") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
+        }
+        when {
+          branch 'dev'
         }
 
         steps {
@@ -51,6 +60,9 @@ pipeline {
         environment
         {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+        when {
+          branch 'dev'
         }
         steps {
           script {
@@ -71,6 +83,9 @@ pipeline {
         {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
+        when {
+          branch 'dev'
+        }
         steps {
           script {
             sh '''
@@ -86,6 +101,9 @@ pipeline {
         environment
         {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+        when {
+          branch 'staging'
         }
         steps {
           script {
@@ -105,6 +123,9 @@ pipeline {
         environment
         {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+        when {
+          branch 'qa'
         }
         steps {
           script {
