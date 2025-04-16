@@ -23,7 +23,7 @@ stages {
                 steps {
                     script {
                     sh '''
-                    docker run -d -p 5001:5001 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
+                    docker run -d -p 5002:5002 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
                     sleep 10
                     '''
                     }
@@ -34,7 +34,7 @@ stages {
             steps {
                     script {
                     sh '''
-                    curl localhost:5001/api/v1/movies
+		    curl http://localhost:5002/api/v1/casts
                     '''
                     }
             }
