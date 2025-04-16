@@ -9,9 +9,7 @@ pipeline {
     stages {
       stage(' Docker Build'){ // docker build image stage
         when {
-anyOf {
-          branch 'dev';
-        }
+expression {env.GIT_BRANCH == 'origin/dev'}
         }
         steps {
           script {
@@ -26,7 +24,7 @@ anyOf {
       }
       stage('Docker run'){ // run container from our builded image
         when {
-          branch 'dev';
+expression {env.GIT_BRANCH == 'origin/dev'}
         }
         steps {
           script {
@@ -43,7 +41,7 @@ anyOf {
           DOCKER_PASS = credentials("DOCKER_HUB_PASS") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
         }
         when {
-          branch 'dev';
+expression {env.GIT_BRANCH == 'origin/dev'}
         }
 
         steps {
@@ -64,7 +62,7 @@ anyOf {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'dev';
+expression {env.GIT_BRANCH == 'origin/dev'}
         }
         steps {
           script {
@@ -86,7 +84,7 @@ anyOf {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'dev';
+expression {env.GIT_BRANCH == 'origin/dev'}
         }
         steps {
           script {
@@ -105,7 +103,7 @@ anyOf {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'staging';
+expression {env.GIT_BRANCH == 'origin/staging'}
         }
         steps {
           script {
@@ -127,7 +125,7 @@ anyOf {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'qa';
+expression {env.GIT_BRANCH == 'origin/qa'}
         }
         steps {
           script {
@@ -149,7 +147,7 @@ anyOf {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'master';
+expression {env.GIT_BRANCH == 'origin/master'}
         }
         steps {
           script {
