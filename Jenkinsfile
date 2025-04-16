@@ -9,7 +9,9 @@ pipeline {
     stages {
       stage(' Docker Build'){ // docker build image stage
         when {
-          branch 'dev'
+anyOf {
+          branch 'dev';
+        }
         }
         steps {
           script {
@@ -24,7 +26,7 @@ pipeline {
       }
       stage('Docker run'){ // run container from our builded image
         when {
-          branch 'dev'
+          branch 'dev';
         }
         steps {
           script {
@@ -41,7 +43,7 @@ pipeline {
           DOCKER_PASS = credentials("DOCKER_HUB_PASS") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
         }
         when {
-          branch 'dev'
+          branch 'dev';
         }
 
         steps {
@@ -62,7 +64,7 @@ pipeline {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'dev'
+          branch 'dev';
         }
         steps {
           script {
@@ -84,7 +86,7 @@ pipeline {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'dev'
+          branch 'dev';
         }
         steps {
           script {
@@ -103,7 +105,7 @@ pipeline {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'staging'
+          branch 'staging';
         }
         steps {
           script {
@@ -125,7 +127,7 @@ pipeline {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'qa'
+          branch 'qa';
         }
         steps {
           script {
@@ -147,7 +149,7 @@ pipeline {
           KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         }
         when {
-          branch 'master'
+          branch 'master';
         }
         steps {
           script {
