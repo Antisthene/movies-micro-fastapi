@@ -1,5 +1,11 @@
 # README
 
+Repo: https://github.com/Antisthene/movies-micro-fastapi
+
+## DockerHub public links:
+* Cast Image: https://hub.docker.com/r/al38984/jenkins-cast-fastapi 
+* Movie Image: https://hub.docker.com/r/al38984/jenkins-movie-fastapi 
+
 ## Setup
 ```
 kubectl create ns dev
@@ -14,7 +20,8 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 helm list -n dev
 ```
 
-### HELM
+## HELM
+Helm chart creations on dev namespace. Shift dev by prod, qa or staging to have all env.
 ```
 cd k8s
 helm install cast-chart ./cast --values=./cast/values.yaml -n dev
