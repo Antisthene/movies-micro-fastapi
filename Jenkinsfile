@@ -131,9 +131,9 @@ expression {env.GIT_BRANCH == 'origin/qa'}
           script {
             sh '''
               cd k8s
-              helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n qa
-              helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n qa
-              helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n qa
+              helm install cast-chart ./cast --values=./cast/values.yaml -n qa
+              helm install movie-chart ./movie --values=./movie/values.yaml -n qa
+              helm install nginx-chart ./nginx --values=./nginx/values.yaml -n qa
               sleep 10
               '''
           }
@@ -153,9 +153,9 @@ expression {env.GIT_BRANCH == 'origin/master'}
           script {
             sh '''
               cd k8s
-              helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n prod
-              helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n prod
-              helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n prod
+              helm install cast-chart ./cast --values=./cast/values.yaml -n prod
+              helm install movie-chart ./movie --values=./movie/values.yaml -n prod
+              helm install nginx-chart ./nginx --values=./nginx/values.yaml -n prod
               '''
           }
         }
