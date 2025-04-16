@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  POSTGRES_DB: bW92aWVfZGJfZGV2
+  POSTGRES_PASSWORD: bW92aWVfZGJfcGFzc3dvcmQ=
+  POSTGRES_USER: bW92aWVfZGJfdXNlcm5hbWU=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: {{ $.Values.db.secret.name }}

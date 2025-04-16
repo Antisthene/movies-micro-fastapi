@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ $.Values.db.name }}
+  name: {{ $.Values.db.name }}
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $.Values.db.name }}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ $.Values.db.name }}
+    spec:
+      containers:
+      - image: {{ $.Values.db.image }}
+        name: postgres
+        ports:
+          - containerPort: {{ $.Values.db.service.port }}
+        envFrom:
+          - secretRef:
+              name: {{ $.Values.db.secret.name }}
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: {{ $.Values.db.volumes.name }}
+        resources: {}
+      volumes:
+        - name: {{ $.Values.db.volumes.name }}
+          persistentVolumeClaim:
+            claimName: {{ $.Values.db.persistentVolumeClaim.name }}
+status: {}

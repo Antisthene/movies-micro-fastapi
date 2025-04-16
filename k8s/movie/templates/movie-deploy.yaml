@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ $.Values.name }}
+  name: {{ $.Values.name }}
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $.Values.name }}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ $.Values.name }}
+    spec:
+      containers:
+      - image: {{ $.Values.image.repository }}
+        name: movie-api
+        ports:
+          - containerPort: {{ $.Values.image.port }}
+        envFrom:
+          - configMapRef:
+              name: {{ $.Values.db.configMap.name }}
+        resources: {}
+status: {}

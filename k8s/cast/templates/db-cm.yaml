@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  DATABASE_URI: postgresql://cast_db_username:cast_db_password@db-cast-svc:5432/cast_db_dev
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ $.Values.db.configMap.name }}
