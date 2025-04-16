@@ -1,6 +1,7 @@
 # README
 
-Repo: https://github.com/Antisthene/movies-micro-fastapi
+* Repo: https://github.com/Antisthene/movies-micro-fastapi
+* On any push, the Jenkinsfile is launched
 
 ## DockerHub public links:
 * Cast Image: https://hub.docker.com/r/al38984/jenkins-cast-fastapi 

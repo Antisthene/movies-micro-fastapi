@@ -56,9 +56,9 @@ stages {
                 script {
                 sh '''
                 cd k8s
-                helm upgrade cast-chart ./cast --values=./cast/values.yaml -n dev
-                helm upgrade movie-chart ./movie --values=./movie/values.yaml -n dev
-                helm upgrade nginx-chart ./nginx --values=./nginx/values.yaml -n dev
+                helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n dev
+                helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n dev
+                helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n dev
                 sleep 10
                 '''
                 }
