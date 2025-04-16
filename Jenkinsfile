@@ -75,8 +75,6 @@ stages {
                         script {
                         sh '''
                         kubectl get po,svc,deploy,pvc,secret,configmap -n dev
-                        export URL=$(curl ipinfo.io/ip)
-                        curl http://$URL:30002/api/v1/casts/docs
                         '''
                         }
                     }
@@ -84,4 +82,64 @@ stages {
                 }
 
         }
+
+      stage('staging deploy'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+                script {
+                sh '''
+                cd k8s
+                helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n staging
+                helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n staging
+                helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n staging
+                sleep 10
+                '''
+                }
+            }
+
+        }
+
+      stage('qa deploy'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+                script {
+                sh '''
+                cd k8s
+                helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n qa
+                helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n qa
+                helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n qa
+                sleep 10
+                '''
+                }
+            }
+
+        }
+
+      stage('prod deploy'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+        when {
+            branch 'master'
+        }
+            steps {
+                script {
+                sh '''
+                cd k8s
+                helm upgrade --install cast-chart ./cast --values=./cast/values.yaml -n prod
+                helm upgrade --install movie-chart ./movie --values=./movie/values.yaml -n prod
+                helm upgrade --install nginx-chart ./nginx --values=./nginx/values.yaml -n prod
+                '''
+                }
+            }
+
+        }
+
 }
